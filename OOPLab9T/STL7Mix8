@@ -1,0 +1,53 @@
+#include <iostream>
+#include <fstream>
+#include <map>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int k;
+    cin >> k;
+
+   
+    map<int, map<int, int>> data;
+
+    int duration, code, year, month;
+    while (cin >> duration >> code >> year >> month) {
+        if (code == k) {
+            
+            if (duration != 0) {
+                data[year][month] = duration;
+            }
+        }
+    }
+
+    bool hasData = false;
+    for (const auto& yearData : data) {
+        int minDuration = INT_MAX;
+        int minMonth = -1;
+
+       
+        for (const auto& monthData : yearData.second) {
+            if (monthData.second < minDuration) {
+                minDuration = monthData.second;
+                minMonth = monthData.first;
+            }
+        }
+
+        
+        if (minMonth != -1) {
+            hasData = true;
+            cout << minDuration << " " << yearData.first << " " << minMonth << endl;
+        }
+    }
+
+    
+    if (!hasData) {
+        cout << "Нет данных" << endl;
+    }
+
+    return 0;
+}
+
